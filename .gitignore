@@ -1,0 +1,5 @@
+FraudVenv/
+__pycache__/
+*.pyc
+.env
+kb_index.faiss

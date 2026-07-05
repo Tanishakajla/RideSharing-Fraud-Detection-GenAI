@@ -1,0 +1,98 @@
+[
+  {
+    "text": "Card Testing Fraud - Definition\nFraudsters test stolen credit card numbers by running many small\ntransactions across different accounts to check which cards are\nstill active before using them for larger fraud elsewhere.",
+    "source_file": "card_testing_fraud.md",
+    "doc_title": "Card Testing Fraud",
+    "section": "Definition"
+  },
+  {
+    "text": "Card Testing Fraud - Related Features\n- card_degree: primary signal. Counts how many distinct accounts have\n  used this same card. A card used by 1 account is normal (the owner).\n  A card used by 4+ accounts in a short window is a strong signal of\n  stolen-card testing.\n- fare: card testing transactions are often unusually low value,\n  since the goal is just to test validity, not extract money yet.",
+    "source_file": "card_testing_fraud.md",
+    "doc_title": "Card Testing Fraud",
+    "section": "Related Features"
+  },
+  {
+    "text": "Card Testing Fraud - Typical Thresholds\n- card_degree >= 4 : suspicious\n- fare below typical trip cost combined with high card_degree : strong signal",
+    "source_file": "card_testing_fraud.md",
+    "doc_title": "Card Testing Fraud",
+    "section": "Typical Thresholds"
+  },
+  {
+    "text": "Card Testing Fraud - Recommended Action\nFlag the card itself, not just the individual trip - block further\nuse of that card across all accounts pending review.",
+    "source_file": "card_testing_fraud.md",
+    "doc_title": "Card Testing Fraud",
+    "section": "Recommended Action"
+  },
+  {
+    "text": "Device Sharing Fraud - Definition\nOccurs when a single physical device is used to create or operate\nmultiple distinct rider accounts. This is a classic signature of\npromo abuse rings and fake-account fraud farms, where one operator\nruns many accounts to repeatedly claim new-user discounts or launder\npayments.",
+    "source_file": "device_sharing_fraud.md",
+    "doc_title": "Device Sharing Fraud",
+    "section": "Definition"
+  },
+  {
+    "text": "Device Sharing Fraud - Related Features\n- num_users_on_device: primary signal. A device tied to 1-2 accounts\n  (e.g. shared family device) is normal. 5+ distinct accounts on one\n  device is not normal consumer behavior.\n- device_degree: a graph-based feature - counts how many other\n  entities (cards, accounts) connect through this device. High degree\n  means the device sits at the center of a suspicious cluster.",
+    "source_file": "device_sharing_fraud.md",
+    "doc_title": "Device Sharing Fraud",
+    "section": "Related Features"
+  },
+  {
+    "text": "Device Sharing Fraud - Typical Thresholds\n- num_users_on_device >= 5 : suspicious\n- device_degree >= 5 : suggests device is part of a fraud ring, not\n  an isolated incident",
+    "source_file": "device_sharing_fraud.md",
+    "doc_title": "Device Sharing Fraud",
+    "section": "Typical Thresholds"
+  },
+  {
+    "text": "Device Sharing Fraud - Recommended Action\nEscalate to fraud ring investigation, not just single-transaction\nreview. If multiple accounts on the device also share a card_degree\npattern, treat as high-confidence organized fraud.",
+    "source_file": "device_sharing_fraud.md",
+    "doc_title": "Device Sharing Fraud",
+    "section": "Recommended Action"
+  },
+  {
+    "text": "New Account Fraud - Definition\nFraud committed via freshly created accounts, typically to abuse\nsign-up promotions, or because a legitimate long-term identity would\nalready be flagged/blacklisted, so fraudsters churn through new\naccounts instead.",
+    "source_file": "new_account_fraud.md",
+    "doc_title": "New Account Fraud",
+    "section": "Definition"
+  },
+  {
+    "text": "New Account Fraud - Related Features\n- seconds_since_signup: primary signal. Very low values (account is\n  minutes or seconds old) combined with any other suspicious feature\n  compounds risk significantly.\n- user_trip_count: a brand-new account with an unusually high trip\n  count already is itself an anomaly.",
+    "source_file": "new_account_fraud.md",
+    "doc_title": "New Account Fraud",
+    "section": "Related Features"
+  },
+  {
+    "text": "New Account Fraud - Typical Thresholds\n- seconds_since_signup < 600 (10 minutes) combined with\n  user_trips_last_1h >= 2 : high suspicion",
+    "source_file": "new_account_fraud.md",
+    "doc_title": "New Account Fraud",
+    "section": "Typical Thresholds"
+  },
+  {
+    "text": "New Account Fraud - Recommended Action\nApply stricter automatic thresholds to new accounts than established\nones. Do not treat a 10-minute-old account with the same trust level\nas a 2-year-old account with clean history.",
+    "source_file": "new_account_fraud.md",
+    "doc_title": "New Account Fraud",
+    "section": "Recommended Action"
+  },
+  {
+    "text": "Velocity Fraud - Definition\nVelocity fraud occurs when a single account books an abnormally high\nnumber of trips within a very short time window. This pattern is common\nin stolen-account takeover, where a fraudster tries to extract maximum\nvalue before the legitimate owner notices and locks the account.",
+    "source_file": "velocity_fraud.md",
+    "doc_title": "Velocity Fraud",
+    "section": "Definition"
+  },
+  {
+    "text": "Velocity Fraud - Related Features\n- user_trips_last_1h: primary signal. Legitimate riders rarely book more\n  than 1-2 trips per hour. 4+ trips/hour is a strong anomaly.\n- seconds_since_signup: velocity fraud combined with a very new account\n  (signed up minutes ago) is a much stronger signal than velocity alone\n  on an old, established account.",
+    "source_file": "velocity_fraud.md",
+    "doc_title": "Velocity Fraud",
+    "section": "Related Features"
+  },
+  {
+    "text": "Velocity Fraud - Typical Thresholds\n- user_trips_last_1h >= 4 : moderate suspicion\n- user_trips_last_1h >= 7 : high suspicion, especially if seconds_since_signup < 3600",
+    "source_file": "velocity_fraud.md",
+    "doc_title": "Velocity Fraud",
+    "section": "Typical Thresholds"
+  },
+  {
+    "text": "Velocity Fraud - Recommended Action\nFlag for manual review. Do not auto-block on velocity alone if the\naccount is old and previously trusted \u2014 could be a legitimate power\nuser (e.g. courier, commuter). Auto-hold only when combined with a\nnew-account signal.",
+    "source_file": "velocity_fraud.md",
+    "doc_title": "Velocity Fraud",
+    "section": "Recommended Action"
+  }
+]
